@@ -1,0 +1,29 @@
+
+<div
+  *ngIf="(data$ | async)?.projects as projects"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="drop($event, projects)"
+  class="project-list d-flex flex-row"
+>
+  <div *ngFor="let project of projects" class="project-card" cdkDrag>
+    <app-card-list  [project]="project"
+                    (deleteCardList)="removeProject($event)"
+                    (dragDrop)="drop($event.event, $event.projects)"
+                    (insertItem)="addTaskInProject($event.task, $event.project)"></app-card-list>
+  </div>
+
+
+  <!-- Component -->
+  <div class="project-card default-cursor insert-card">
+    <div class="w-100">
+      <div class="project-card-title">+ Add another list</div>
+      <div class="tasks">
+        <div class="task-card">
+            <input type="text" (keyup.enter)="addProject()" [(ngModel)]="project.name" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

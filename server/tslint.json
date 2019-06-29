@@ -1,0 +1,27 @@
+{
+  "extends": "tslint-config-airbnb",
+  "rules": {
+    "ter-indent": [
+      true,
+      2
+    ],
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "eofline": false,
+    "max-line-length": [
+      false
+    ],
+    "no-trailing-whitespace": false,
+     "quotemark": [
+       true,
+       "single"
+     ],
+    "semicolon": [
+      false,
+      "always"
+    ],
+    "trailing-comma": [false]
+  }
+}

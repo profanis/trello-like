@@ -1,0 +1,36 @@
+type Project {
+  id: ID
+  name: String!
+  description: String
+  tasks: [Task]
+  order: Int
+}
+
+input NewProjectInput {
+  name: String!
+  description: String
+}
+
+input UpdateProjectInput {
+  id: ID!
+  name: String!
+  description: String
+}
+
+input UpdateProjectSortingInput {
+  id: ID!
+  order: Int
+}
+
+
+extend type Query {
+  project(id: ID!): Project!
+  projects: [Project]!
+}
+
+extend type Mutation {
+  newProject(input: NewProjectInput): Project!
+  updateProject(input: UpdateProjectInput): Project!
+  updateProjectSorting(input: UpdateProjectSortingInput): Project!
+  removeProject(id: ID!): Project!
+}

@@ -1,0 +1,16 @@
+<div class="w-100">
+  <div class="project-card-actions">
+    <span class="pca remove" (click)="removeProject(project.id)">X</span>
+  </div>
+  <div class="project-card-title">{{ project.name }}</div>
+
+  <div class="tasks">
+    <div class="task-card" *ngFor="let task of project.tasks">
+      {{ task.name }}
+    </div>
+
+    <div class="task-card">
+      <input #taskName="ngModel" ngModel name="taskName" (keyup.enter)="addTaskInProject(taskName.value, project)" type="text" placeholder="enter a title for this card" >
+    </div>
+  </div>
+</div>
