@@ -9,7 +9,7 @@ import { NewTaskResponse } from 'src/app/models/project.model';
 })
 export class NewTaskGQL extends Mutation<NewTaskResponse, NewTaskInputVariables> {
   document = gql`
-    mutation NewProject($input: NewTaskInput) {
+    mutation NewTask($input: NewTaskInput) {
       newTask(input: $input) {
         id
         name

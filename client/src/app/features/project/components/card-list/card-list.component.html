@@ -4,13 +4,25 @@
   </div>
   <div class="project-card-title">{{ project.name }}</div>
 
-  <div class="tasks">
-    <div class="task-card" *ngFor="let task of project.tasks">
+  <div
+    class="tasks"
+    cdkDropList
+    cdkDropListOrientation="vertical"
+    (cdkDropListDropped)="dropTask($event, project.tasks)"
+  >
+    <div class="task-card" *ngFor="let task of project.tasks" cdkDrag>
       {{ task.name }}
     </div>
 
     <div class="task-card">
-      <input #taskName="ngModel" ngModel name="taskName" (keyup.enter)="addTaskInProject(taskName.value, project)" type="text" placeholder="enter a title for this card" >
+      <input
+        #taskName="ngModel"
+        ngModel
+        name="taskName"
+        (keyup.enter)="addTaskInProject(taskName.value, project)"
+        type="text"
+        placeholder="enter a title for this card"
+      />
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Project } from 'src/app/models/project.model';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-card-list',
@@ -31,6 +31,16 @@ export class CardListComponent {
       task,
       project
     })
+  }
+
+  dropTask(event: CdkDragDrop<string[]>, tasks) {
+    const project = tasks[event.previousIndex]
+
+
+
+    moveItemInArray(tasks, event.previousIndex, event.currentIndex)
+
+    // Persist task order in Project
   }
 
 }

@@ -18,23 +18,6 @@ export class ProjectListService {
     private newTaskGQL: NewTaskGQL
   ) {}
 
-  // addProject(project: Project) {
-  //   return this.newProjectGQL.mutate(
-  //     {
-  //       input: project,
-  //     },
-  //     {
-  //       refetchQueries: [
-  //         {
-  //           query: this.projectsGQL.document,
-  //         },
-  //       ],
-  //       errorPolicy: 'ignore',
-  //     }
-  //   )
-  // }
-
-
   addProject(project: Project) {
     return this.newProjectGQL.mutate(
       { input: project },
@@ -63,9 +46,13 @@ export class ProjectListService {
       { id: projectId } ,
       {
         update: (store, { data: { removeProject } }) => {
+
+          // Get the slice of the cache
           const data: ProjectsResponse = store.readQuery({
             query: this.projectsGQL.document,
           })
+
+          // Remove item from array
           const projectIndex = data.projects.findIndex(
             (project) => project.id === removeProject.id
           )
@@ -75,6 +62,7 @@ export class ProjectListService {
             ...data.projects.slice(projectIndex + 1),
           ]
 
+          // Update cache
           store.writeQuery({ query: this.projectsGQL.document, data })
         },
       }
@@ -91,15 +79,19 @@ export class ProjectListService {
       },
       {
         update: (store, { data: { newTask } }) => {
+
+          // Get the slice of the cache
           const data: ProjectsResponse = store.readQuery({
             query: this.projectsGQL.document,
           })
 
+          // Add task in project
           const foundProject = data.projects.find((it) => it.id === project.id)
 
           foundProject.tasks = foundProject.tasks || []
           foundProject.tasks.push(newTask)
 
+          // Update cache
           store.writeQuery({ query: this.projectsGQL.document, data })
         },
       }
@@ -108,8 +100,8 @@ export class ProjectListService {
 
   getProducts() {
     return this.projectsGQL
-      .watch()
-      .valueChanges.pipe(map((results) => results.data))
+      .watch().valueChanges
+      .pipe(map((results) => results.data))
   }
 
   updateProjectSorting(projectId: string, order: number) {
