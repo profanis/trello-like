@@ -13,7 +13,6 @@ export class UpdateProjectGQL extends Mutation<NewProjectResponse, NewProjectInp
       updateProject(input: $input) {
         id
         name
-        description
       }
     }`;
 }

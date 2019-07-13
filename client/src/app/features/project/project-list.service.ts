@@ -98,7 +98,7 @@ export class ProjectListService {
     )
   }
 
-  getProducts() {
+  getProjects() {
     return this.projectsGQL
       .watch().valueChanges
       .pipe(map((results) => results.data))

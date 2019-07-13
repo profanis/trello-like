@@ -23,7 +23,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   constructor(private projectListService: ProjectListService) {}
 
   ngOnInit() {
-    this.data$ = this.projectListService.getProducts()
+    this.data$ = this.projectListService.getProjects()
   }
 
   addProject() {

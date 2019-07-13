@@ -1,20 +1,17 @@
 type Project {
   id: ID
   name: String!
-  description: String
   tasks: [Task]
   order: Int
 }
 
 input NewProjectInput {
   name: String!
-  description: String
 }
 
 input UpdateProjectInput {
   id: ID!
   name: String!
-  description: String
 }
 
 input UpdateProjectSortingInput {

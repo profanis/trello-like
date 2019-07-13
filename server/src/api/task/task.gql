@@ -1,14 +1,12 @@
 type Task {
     id: ID
     name: String
-    description: String
     project: Project
 }
 
 input NewTaskInput {
     project: ID!
     name: String!
-    description: String
 }
 
 input TaskInput {
