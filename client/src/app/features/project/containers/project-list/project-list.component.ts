@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
-import { Observable, Subscription } from 'rxjs'
-
-import { ProjectListService } from '../../project-list.service'
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
-import { ProjectsResponse, Project } from 'src/app/models/project.model'
-import { tap } from 'rxjs/operators'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Observable, Subscription } from 'rxjs'
+import { first, tap } from 'rxjs/operators'
+import { Project, ProjectsResponse } from 'src/app/models/project.model'
+import { ProjectListService } from '../../project-list.service'
 
 @Component({
   selector: 'app-project',
@@ -15,10 +14,10 @@ import { tap } from 'rxjs/operators'
 export class ProjectListComponent implements OnInit, OnDestroy {
   data$: Observable<ProjectsResponse>
   project: Project = {}
-  addProjectSubscr: Subscription
-  removeProjectSubscr: Subscription
-  addTaskSubscr: Subscription
-  updateProjectSortSubsc: Subscription
+  addProjectSubscription: Subscription
+  removeProjectSubscription: Subscription
+  addTaskSubscription: Subscription
+  updateProjectSortSubscription: Subscription
 
   constructor(private projectListService: ProjectListService) {}
 
@@ -27,48 +26,56 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   }
 
   addProject() {
-    this.addProjectSubscr = this.projectListService
+    this.addProjectSubscription = this.projectListService
       .addProject(this.project)
-      .pipe(tap(() => (this.project.name = '')))
+      .pipe(
+        first(),
+        tap(() => (this.project.name = ''))
+      )
       .subscribe()
   }
 
   removeProject(projectId) {
-    this.removeProjectSubscr = this.projectListService
+    this.removeProjectSubscription = this.projectListService
       .removeProject(projectId)
+      .pipe(first())
       .subscribe()
   }
 
   addTaskInProject(task, project) {
-    this.addTaskSubscr = this.projectListService
+    this.addTaskSubscription = this.projectListService
       .addTaskInProject(task, project)
+      .pipe(first())
       .subscribe()
   }
 
+  // TODO: fix this
   drop(event: CdkDragDrop<string[]>, projects) {
     const project = projects[event.previousIndex]
     console.log(project.name, event.previousIndex, event.currentIndex)
     moveItemInArray(projects, event.previousIndex, event.currentIndex)
-    this.updateProjectSortSubsc = this.projectListService
+
+    this.updateProjectSortSubscription = this.projectListService
       .updateProjectSorting(project.id, event.currentIndex)
+      .pipe(first())
       .subscribe()
   }
 
   ngOnDestroy(): void {
-    if (this.addProjectSubscr) {
-      this.addProjectSubscr.unsubscribe()
+    if (this.addProjectSubscription) {
+      this.addProjectSubscription.unsubscribe()
     }
 
-    if (this.removeProjectSubscr) {
-      this.removeProjectSubscr.unsubscribe()
+    if (this.removeProjectSubscription) {
+      this.removeProjectSubscription.unsubscribe()
     }
 
-    if (this.addTaskSubscr) {
-      this.addTaskSubscr.unsubscribe()
+    if (this.addTaskSubscription) {
+      this.addTaskSubscription.unsubscribe()
     }
 
-    if (this.updateProjectSortSubsc) {
-      this.updateProjectSortSubsc.unsubscribe()
+    if (this.updateProjectSortSubscription) {
+      this.updateProjectSortSubscription.unsubscribe()
     }
   }
 }

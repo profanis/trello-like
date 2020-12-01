@@ -1,6 +1,7 @@
+import {Mutation, gql} from 'apollo-angular';
 import { Injectable } from '@angular/core';
-import { Mutation } from 'apollo-angular';
-import gql from 'graphql-tag';
+
+
 import { NewProjectResponse, NewProjectInputVariables } from 'src/app/models/project.model';
 
 

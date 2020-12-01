@@ -1,40 +1,39 @@
-import { NgModule } from '@angular/core';
-import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
-import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { onError } from 'apollo-link-error';
+import { NgModule } from '@angular/core'
+import { InMemoryCache } from '@apollo/client/core'
+import { onError } from '@apollo/client/link/error'
+import { APOLLO_OPTIONS } from 'apollo-angular'
+import { HttpLink } from 'apollo-angular/http'
 
-const uri = 'http://localhost:3001/graphql'; // <-- add the URL of the GraphQL server here
+const uri = 'http://localhost:3001/graphql' // <-- add the URL of the GraphQL server here
 
 const link = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.map(({ message, locations, path }) =>
       console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-      ),
-    );
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    )
   }
 
   if (networkError) {
-    console.log(`[Network error]: ${networkError}`);
+    console.log(`[Network error]: ${networkError}`)
   }
-});
-
+})
 
 export function createApollo(httpLink: HttpLink) {
   return {
-    link: link.concat(httpLink.create({uri})),
+    link: link.concat(httpLink.create({ uri })),
     cache: new InMemoryCache(),
     defaultOptions: {
       watchQuery: {
-        errorPolicy: 'all'
-      }
-    }
-  };
+        errorPolicy: 'all',
+      },
+    },
+  }
 }
 
 @NgModule({
-  exports: [ApolloModule, HttpLinkModule],
+  exports: [],
   providers: [
     {
       provide: APOLLO_OPTIONS,

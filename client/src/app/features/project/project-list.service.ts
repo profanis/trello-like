@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core'
-
+import { map } from 'rxjs/operators'
+import { Project, ProjectsResponse } from 'src/app/models/project.model'
+import { ChangeProjectOrderGQL } from './graphql/mutations/change-project-order.mutation'
 import { NewProjectGQL } from './graphql/mutations/new-project.mutation'
 import { NewTaskGQL } from './graphql/mutations/new-task.mutation'
 import { RemoveProjectGQL } from './graphql/mutations/remove-project.mutation'
 import { ProjectsGQL } from './graphql/queries/projects.query'
-import { map } from 'rxjs/operators'
-import { ChangeProjectOrderGQL } from './graphql/mutations/change-project-order.mutation'
-import { Project, ProjectsResponse } from 'src/app/models/project.model';
 
 @Injectable()
 export class ProjectListService {
@@ -22,19 +21,24 @@ export class ProjectListService {
     return this.newProjectGQL.mutate(
       { input: project },
       {
-        update: (store, {data: {newProject}}) => {
+        update: (store, { data: { newProject } }) => {
           // Get the slice of the cache
-          const data: ProjectsResponse = store.readQuery({
+          const state: ProjectsResponse = store.readQuery({
             query: this.projectsGQL.document,
           })
 
-          // Insert new item in array
-          data.projects.push({...newProject, order: 0, tasks: []})
+          const updatedState = {
+            ...state,
+            projects: [
+              ...state.projects,
+              { ...newProject, order: 0, tasks: [] },
+            ],
+          }
 
           // Update cache
           store.writeQuery({
             query: this.projectsGQL.document,
-            data
+            data: updatedState,
           })
         },
       }
@@ -43,27 +47,32 @@ export class ProjectListService {
 
   removeProject(projectId) {
     return this.removeProjectGQL.mutate(
-      { id: projectId } ,
+      { id: projectId },
       {
-        update: (store, { data: { removeProject } }) => {
-
+        update: (store, { data: { newProject } }) => {
           // Get the slice of the cache
-          const data: ProjectsResponse = store.readQuery({
+          const state: ProjectsResponse = store.readQuery({
             query: this.projectsGQL.document,
           })
 
           // Remove item from array
-          const projectIndex = data.projects.findIndex(
-            (project) => project.id === removeProject.id
+          const projectIndex = state.projects.findIndex(
+            (project) => project.id === newProject.id
           )
 
-          data.projects = [
-            ...data.projects.slice(0, projectIndex),
-            ...data.projects.slice(projectIndex + 1),
-          ]
+          const updatedState = {
+            ...state,
+            projects: [
+              ...state.projects.slice(0, projectIndex),
+              ...state.projects.slice(projectIndex + 1),
+            ],
+          }
 
           // Update cache
-          store.writeQuery({ query: this.projectsGQL.document, data })
+          store.writeQuery({
+            query: this.projectsGQL.document,
+            data: updatedState,
+          })
         },
       }
     )
@@ -79,20 +88,37 @@ export class ProjectListService {
       },
       {
         update: (store, { data: { newTask } }) => {
-
           // Get the slice of the cache
-          const data: ProjectsResponse = store.readQuery({
+          const state: ProjectsResponse = store.readQuery({
             query: this.projectsGQL.document,
           })
 
           // Add task in project
-          const foundProject = data.projects.find((it) => it.id === project.id)
+          const foundProjectIndex = state.projects.findIndex(
+            (it) => it.id === project.id
+          )
 
-          foundProject.tasks = foundProject.tasks || []
-          foundProject.tasks.push(newTask)
+          const foundProject = { ...state.projects[foundProjectIndex] }
+
+          const newItem = {
+            ...state.projects[foundProjectIndex],
+            tasks: [...foundProject.tasks, newTask],
+          }
+
+          const updatedState = {
+            ...state,
+            projects: [
+              ...state.projects.slice(0, foundProjectIndex),
+              newItem,
+              ...state.projects.slice(foundProjectIndex + 1),
+            ],
+          }
 
           // Update cache
-          store.writeQuery({ query: this.projectsGQL.document, data })
+          store.writeQuery({
+            query: this.projectsGQL.document,
+            data: updatedState,
+          })
         },
       }
     )
@@ -100,8 +126,8 @@ export class ProjectListService {
 
   getProjects() {
     return this.projectsGQL
-      .watch().valueChanges
-      .pipe(map((results) => results.data))
+      .watch()
+      .valueChanges.pipe(map((results) => results.data))
   }
 
   updateProjectSorting(projectId: string, order: number) {
@@ -110,15 +136,30 @@ export class ProjectListService {
         input: { id: projectId, order },
       },
       {
-        update: (store, { data: { newTask } }) => {
-          const data: ProjectsResponse = store.readQuery({
+        update: (store, { data: { newProject } }) => {
+          debugger
+          const state: ProjectsResponse = store.readQuery({
             query: this.projectsGQL.document,
           })
 
-          const foundProject = data.projects.find((it) => it.id === projectId)
-          foundProject.order = order
+          const foundProjectIndex = state.projects.findIndex(
+            (it) => it.id === projectId
+          )
+          const newItem = {
+            ...newProject,
+            order,
+          }
 
-          store.writeQuery({ query: this.projectsGQL.document, data })
+          const newState = {
+            ...state,
+            projects: [
+              ...state.projects.slice(0, foundProjectIndex),
+              newItem,
+              ...state.projects.slice(foundProjectIndex + 1),
+            ],
+          }
+
+          store.writeQuery({ query: this.projectsGQL.document, data: newState })
         },
       }
     )

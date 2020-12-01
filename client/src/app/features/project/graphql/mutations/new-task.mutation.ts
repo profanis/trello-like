@@ -1,6 +1,7 @@
+import {Mutation, gql} from 'apollo-angular';
 import { Injectable } from '@angular/core';
-import { Mutation } from 'apollo-angular';
-import gql from 'graphql-tag';
+
+
 import { NewTaskInputVariables } from 'src/app/models/variables/new-task-input.variables';
 import { NewTaskResponse } from 'src/app/models/project.model';
 

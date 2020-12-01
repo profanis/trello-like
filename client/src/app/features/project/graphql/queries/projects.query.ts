@@ -1,6 +1,7 @@
+import {Query, gql} from 'apollo-angular';
 import { Injectable } from '@angular/core'
-import { Query } from 'apollo-angular'
-import gql from 'graphql-tag'
+
+
 import { ProjectsResponse } from 'src/app/models/project.model';
 
 @Injectable({
