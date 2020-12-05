@@ -49,7 +49,7 @@ export class ProjectListService {
     return this.removeProjectGQL.mutate(
       { id: projectId },
       {
-        update: (store, { data: { newProject } }) => {
+        update: (store, { data: { removeProject } }) => {
           // Get the slice of the cache
           const state: ProjectsResponse = store.readQuery({
             query: this.projectsGQL.document,
@@ -57,7 +57,7 @@ export class ProjectListService {
 
           // Remove item from array
           const projectIndex = state.projects.findIndex(
-            (project) => project.id === newProject.id
+            (project) => project.id === removeProject.id
           )
 
           const updatedState = {
