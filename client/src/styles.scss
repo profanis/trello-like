@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/scss/bootstrap.scss';
+@import './assets/helpers/variables';
 
 body {
   margin-left: 20px;
-  background-color: #0079bf;
+  background-color: $main-color;
 }
 
 html,

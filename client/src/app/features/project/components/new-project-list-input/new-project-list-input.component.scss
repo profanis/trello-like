@@ -1,0 +1,30 @@
+@import '../../../../../assets/helpers/variables';
+
+$new-project-list-default-color: #3d99ce;
+$new-project-list-bg-transition: background-color 0.3s;
+
+:host {
+  @include project-gutter();
+}
+
+.new-project-list-wrapper {
+  &.is-editing {
+    background-color: $project-card-bg-color;
+    border-radius: $border-radius;
+  }
+
+  &.is-default {
+    background-color: $new-project-list-default-color;
+    color: #ffffff;
+    transition: $new-project-list-bg-transition;
+    &:hover {
+      transition: $new-project-list-bg-transition;
+      background-color: lighten($new-project-list-default-color, 10);
+    }
+  }
+
+  cursor: pointer;
+  border-radius: $border-radius;
+  padding: 8px;
+  width: $project-list-width;
+}

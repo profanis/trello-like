@@ -14,17 +14,8 @@
       {{ task.name }}
     </div>
 
+    <!-- Add new item -->
     <trello-add-new-task (add)="addTaskInProject($event)"></trello-add-new-task>
-
-    <!-- <div class="task-card">
-      <input
-        #taskName="ngModel"
-        ngModel
-        name="taskName"
-        (keyup.enter)="addTaskInProject(taskName.value, project)"
-        type="text"
-        placeholder="enter a title for this card"
-      />
-    </div> -->
+    <!-- /Add new item -->
   </div>
 </div>

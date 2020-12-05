@@ -26,9 +26,11 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.data$ = this.projectListService.getProjects()
   }
 
-  addProject() {
+  addProject(projectName: string) {
     this.addProjectSubscription = this.projectListService
-      .addProject(this.project)
+      .addProject({
+        name: projectName,
+      })
       .pipe(
         first(),
         tap(() => (this.project.name = ''))
@@ -44,7 +46,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   }
 
   addTaskInProject(task: string, project: Project) {
-    debugger
     this.addTaskSubscription = this.projectListService
       .addTaskInProject(task, project)
       .pipe(first())

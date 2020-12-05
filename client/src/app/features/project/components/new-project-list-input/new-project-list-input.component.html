@@ -1,0 +1,21 @@
+<div
+  class="new-project-list-wrapper"
+  [class.is-editing]="isEditingMode"
+  [class.is-default]="!isEditingMode"
+>
+  <span
+    *ngIf="!isEditingMode"
+    class="placeholder"
+    (click)="isEditingMode = true"
+  >
+    + Add another list
+  </span>
+  <div *ngIf="isEditingMode">
+    <trello-add-new-task
+      [(isEditMode)]="isEditingMode"
+      [buttonTitle]="'Add list'"
+      [placeholder]="'Add another list'"
+      (add)="addNewList($event)"
+    ></trello-add-new-task>
+  </div>
+</div>

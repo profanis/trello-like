@@ -2,11 +2,11 @@
 @import '../../../../../assets/components/task';
 
 .project-card {
+  @include project-gutter();
   background-color: $project-card-bg-color;
   border-radius: $border-radius;
   padding: 8px;
-  width: 250px;
-  margin-left: 8px;
+  width: $project-list-width;
   align-items: center;
   box-sizing: border-box;
 

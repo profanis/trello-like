@@ -15,18 +15,19 @@
   </div>
 
   <!-- Component -->
-  <div class="project-card default-cursor insert-card">
-    <div class="w-100">
-      <div class="project-card-title">+ Add another list</div>
-      <div class="tasks">
-        <div class="task-card">
-          <input
-            type="text"
-            (keyup.enter)="addProject()"
-            [(ngModel)]="project.name"
-          />
-        </div>
+  <trello-new-project-list-input
+    (add)="addProject($event)"
+  ></trello-new-project-list-input>
+  <div class="new-project-list-wrapper">
+    <!-- <div class="project-card-title">+ Add another list</div>
+    <div class="tasks">
+      <div class="task-card">
+        <input
+          type="text"
+          (keyup.enter)="addProject()"
+          [(ngModel)]="project.name"
+        />
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

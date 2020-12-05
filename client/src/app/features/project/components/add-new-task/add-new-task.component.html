@@ -10,7 +10,7 @@
     ngModel
     #newCardItem="ngModel"
     (keydown.enter)="addCard(newCardItem.value)"
-    placeholder="Enter a title for this card..."
+    [placeholder]="placeholder"
     [trelloAutoFocus]
   />
   <div class="d-flex align-items-center">
@@ -19,7 +19,7 @@
       class="btn btn-success btn-sm"
       (click)="addCard(newCardItem.value)"
     >
-      Add Card
+      {{ buttonTitle }}
     </button>
     <span class="close-icon ml-2" (click)="isEditMode = false">X</span>
   </div>

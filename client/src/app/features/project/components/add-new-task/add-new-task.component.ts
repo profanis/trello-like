@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   Output,
 } from '@angular/core'
 
@@ -13,8 +14,21 @@ import {
 })
 export class AddNewTaskComponent {
   @Output() add = new EventEmitter<string>()
+  @Output() isEditModeChange = new EventEmitter<boolean>()
 
-  isEditMode = false
+  @Input() placeholder = 'Enter a title for this card...'
+  @Input() set isEditMode(value: boolean) {
+    this._isEditMode = value
+    this.isEditModeChange.emit(value)
+  }
+
+  get isEditMode() {
+    return this._isEditMode
+  }
+
+  private _isEditMode = false
+
+  @Input() buttonTitle = 'Add card'
 
   addCard(cardValue: string) {
     this.add.emit(cardValue)
