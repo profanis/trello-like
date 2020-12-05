@@ -14,10 +14,11 @@ import { ProjectListService } from '../../project-list.service'
 export class ProjectListComponent implements OnInit, OnDestroy {
   data$: Observable<ProjectsResponse>
   project: Project = {}
-  addProjectSubscription: Subscription
-  removeProjectSubscription: Subscription
-  addTaskSubscription: Subscription
-  updateProjectSortSubscription: Subscription
+
+  private addProjectSubscription: Subscription
+  private removeProjectSubscription: Subscription
+  private addTaskSubscription: Subscription
+  private updateProjectSortSubscription: Subscription
 
   constructor(private projectListService: ProjectListService) {}
 
@@ -42,7 +43,8 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       .subscribe()
   }
 
-  addTaskInProject(task, project) {
+  addTaskInProject(task: string, project: Project) {
+    debugger
     this.addTaskSubscription = this.projectListService
       .addTaskInProject(task, project)
       .pipe(first())
@@ -62,20 +64,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.addProjectSubscription) {
-      this.addProjectSubscription.unsubscribe()
-    }
-
-    if (this.removeProjectSubscription) {
-      this.removeProjectSubscription.unsubscribe()
-    }
-
-    if (this.addTaskSubscription) {
-      this.addTaskSubscription.unsubscribe()
-    }
-
-    if (this.updateProjectSortSubscription) {
-      this.updateProjectSortSubscription.unsubscribe()
-    }
+    this.addProjectSubscription?.unsubscribe()
+    this.removeProjectSubscription?.unsubscribe()
+    this.addTaskSubscription?.unsubscribe()
+    this.updateProjectSortSubscription?.unsubscribe()
   }
 }

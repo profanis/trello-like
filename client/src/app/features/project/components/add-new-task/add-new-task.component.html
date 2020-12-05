@@ -1,0 +1,26 @@
+<div *ngIf="!isEditMode" class="add-new-card" (click)="isEditMode = true">
+  + Add another card
+</div>
+
+<div *ngIf="isEditMode" class="adding-new-card">
+  <input
+    type="text"
+    class="adding-new-card-input"
+    name="newCardItem"
+    ngModel
+    #newCardItem="ngModel"
+    (keydown.enter)="addCard(newCardItem.value)"
+    placeholder="Enter a title for this card..."
+    [trelloAutoFocus]
+  />
+  <div class="d-flex align-items-center">
+    <button
+      type="button"
+      class="btn btn-success btn-sm"
+      (click)="addCard(newCardItem.value)"
+    >
+      Add Card
+    </button>
+    <span class="close-icon ml-2" (click)="isEditMode = false">X</span>
+  </div>
+</div>

@@ -1,19 +1,23 @@
-import {Mutation, gql} from 'apollo-angular';
-import { Injectable } from '@angular/core';
-
-
-import { NewProjectResponse, NewProjectInputVariables } from 'src/app/models/project.model';
-
+import { Injectable } from '@angular/core'
+import { gql, Mutation } from 'apollo-angular'
+import {
+  NewProjectInputVariables,
+  NewProjectResponse,
+} from 'src/app/models/project.model'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class UpdateProjectGQL extends Mutation<NewProjectResponse, NewProjectInputVariables> {
+export class UpdateProjectGQL extends Mutation<
+  NewProjectResponse,
+  NewProjectInputVariables
+> {
   document = gql`
     mutation UpdateProject($input: UpdateProjectInput) {
       updateProject(input: $input) {
         id
         name
       }
-    }`;
+    }
+  `
 }

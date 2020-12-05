@@ -1,4 +1,4 @@
-<div class="w-100">
+<div class="project-card">
   <div class="project-card-actions">
     <span class="pca remove" (click)="removeProject(project.id)">X</span>
   </div>
@@ -14,7 +14,9 @@
       {{ task.name }}
     </div>
 
-    <div class="task-card">
+    <trello-add-new-task (add)="addTaskInProject($event)"></trello-add-new-task>
+
+    <!-- <div class="task-card">
       <input
         #taskName="ngModel"
         ngModel
@@ -23,6 +25,6 @@
         type="text"
         placeholder="enter a title for this card"
       />
-    </div>
+    </div> -->
   </div>
 </div>

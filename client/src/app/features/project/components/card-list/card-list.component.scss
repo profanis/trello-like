@@ -1,0 +1,45 @@
+@import '../../../../../assets/helpers/variables';
+@import '../../../../../assets/components/task';
+
+.project-card {
+  background-color: $project-card-bg-color;
+  border-radius: $border-radius;
+  padding: 8px;
+  width: 250px;
+  margin-left: 8px;
+  align-items: center;
+  box-sizing: border-box;
+
+  &.default-cursor {
+    cursor: pointer;
+  }
+
+  &.insert-card {
+    background-color: cornflowerblue;
+  }
+
+  &-title {
+    font-weight: 500;
+    font-size: $main-font-size;
+    display: block;
+  }
+
+  &-actions {
+    .pca {
+      cursor: pointer;
+
+      &.remove {
+        color: red;
+        font-size: 10px;
+        float: right;
+      }
+    }
+  }
+
+  .tasks {
+    margin-top: 10px;
+    .task-card {
+      @include task_card();
+    }
+  }
+}

@@ -1,8 +1,9 @@
-import {Mutation, gql} from 'apollo-angular';
 import { Injectable } from '@angular/core'
-
-
-import { NewProjectResponse, UpdateProjectSortingInput } from 'src/app/models/project.model';
+import { gql, Mutation } from 'apollo-angular'
+import {
+  NewProjectResponse,
+  UpdateProjectSortingInput,
+} from 'src/app/models/project.model'
 
 @Injectable({
   providedIn: 'root',

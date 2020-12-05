@@ -1,13 +1,13 @@
 .page-header {
-  background-color: cornflowerblue;
-  height: 50px;
-  line-height: 50px;
-  padding: 0 10px;
-  position: fixed;
+  background-color: #0067a3;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
 
   span {
-    color: white;
+    color: #7fb3d1;
     font-size: 20px;
     font-weight: bold;
   }
