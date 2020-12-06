@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core'
 import { gql, Mutation } from 'apollo-angular'
-import { NewTaskResponse } from 'src/app/models/project.model'
 import { NewTaskInputVariables } from 'src/app/models/variables/new-task-input.variables'
+import { Task } from '../../../../models/task.model'
 
 @Injectable({
   providedIn: 'root',
 })
 export class NewTaskGQL extends Mutation<
-  NewTaskResponse,
+  { newTask: Task },
   NewTaskInputVariables
 > {
   document = gql`

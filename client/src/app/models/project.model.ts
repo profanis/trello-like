@@ -7,28 +7,13 @@ export interface Project {
   order?: number
   tasks?: Task[]
 }
-
-export interface NewProjectResponse {
-  newProject: Project
-}
-
-export interface NewTaskResponse {
-  newTask: Task
-}
-
 export interface ProjectResponse {
   project: Project
 }
-
 export interface ProjectsResponse {
   projects: Project[]
 }
-
-export interface NewProjectInputVariables {
-  input: Project
-}
-
-export interface UpdateProjectSortingInput {
+export interface UpdateProjectOrderInput {
   input: {
     id: string
     order: number

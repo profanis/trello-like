@@ -69,7 +69,7 @@ describe('Project', () => {
 
       async function changeOrder(projectId: any) {
         const query = `
-        mutation UpdateProjectSorting($input: UpdateProjectSortingInput) {
+        mutation UpdateProjectSorting($input: UpdateProjectOrderInput) {
           updateProjectSorting(input: $input) {
             id
             name

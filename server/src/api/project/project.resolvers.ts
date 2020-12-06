@@ -1,6 +1,5 @@
 import { ProjectModel } from '../../models/project.model'
 import { TaskModel } from '../../models/task.model'
-import { ProjectService } from '../../services/project.service'
 
 const project = (_: any, args: any, ctx: any) => {
   // we use loaders here instrad of ProjectModel to improve the performance
@@ -8,9 +7,7 @@ const project = (_: any, args: any, ctx: any) => {
 }
 
 const projects = (_: any, args: any) => {
-  return ProjectModel.find({})
-    .sort('order')
-    .exec()
+  return ProjectModel.find({}).sort('order').exec()
 }
 
 const newProject = (_: any, args: any) => {
@@ -18,6 +15,7 @@ const newProject = (_: any, args: any) => {
 }
 
 const updateProject = (_: any, args: any) => {
+  console.log(args.input.id, args.input)
   return ProjectModel.findByIdAndUpdate(args.input.id, args.input)
 }
 
@@ -25,9 +23,25 @@ const removeProject = (_: any, args: any) => {
   return ProjectModel.findByIdAndRemove(args.id).exec()
 }
 
-const updateProjectSorting = (_: any, args: any) => {
-  const { id, order } = args.input
-  return  ProjectModel.findByIdAndUpdate(id, { order }, { new: true }).exec()
+const updateProjectsOrder = (_: any, args: any) => {
+  args.input.forEach((it: { id: string; order: number }) => {
+    return ProjectModel.findByIdAndUpdate(it.id, {
+      $set: { order: it.order },
+    }).exec()
+  })
+
+  // const projects = ProjectModel.find({}).exec()
+
+  // const response = ProjectModel.findByIdAndUpdate(args.input.id, {
+  //   order: newOrder,
+  // }).exec()
+
+  // ProjectModel.updateMany(
+  //   { order: { $gte: newOrder }, id: { $ne: args.input.id } },
+  //   { $inc: { order: 1 } }
+  // ).exec()
+
+  return ProjectModel.find({}).exec()
 }
 
 export const projectResolvers = {
@@ -38,8 +52,8 @@ export const projectResolvers = {
   Mutation: {
     newProject,
     updateProject,
+    updateProjectsOrder,
     removeProject,
-    updateProjectSorting,
   },
   Project: {
     tasks(project: any, args: any, ctx: any) {

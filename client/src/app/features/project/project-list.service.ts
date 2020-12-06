@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core'
 import { map } from 'rxjs/operators'
-import { Project, ProjectsResponse } from 'src/app/models/project.model'
-import { ChangeProjectOrderGQL } from './graphql/mutations/change-project-order.mutation'
+import { Project } from 'src/app/models/project.model'
+import { ProjectsResponse } from '../../models/project.model'
 import { NewProjectGQL } from './graphql/mutations/new-project.mutation'
 import { NewTaskGQL } from './graphql/mutations/new-task.mutation'
 import { RemoveProjectGQL } from './graphql/mutations/remove-project.mutation'
+import { UpdateProjectsOrderGQL } from './graphql/mutations/update-project-order.mutation'
 import { ProjectsGQL } from './graphql/queries/projects.query'
 
 @Injectable()
@@ -13,7 +14,7 @@ export class ProjectListService {
     private newProjectGQL: NewProjectGQL,
     private projectsGQL: ProjectsGQL,
     private removeProjectGQL: RemoveProjectGQL,
-    private changeProjectOrderGQL: ChangeProjectOrderGQL,
+    private updateProjectOrderGQL: UpdateProjectsOrderGQL,
     private newTaskGQL: NewTaskGQL
   ) {}
 
@@ -130,37 +131,13 @@ export class ProjectListService {
       .valueChanges.pipe(map((results) => results.data))
   }
 
-  updateProjectSorting(projectId: string, order: number) {
-    return this.changeProjectOrderGQL.mutate(
+  updateProjectsOrder(updatedIndexes: { id: number; order: number }[]) {
+    return this.updateProjectOrderGQL.mutate(
       {
-        input: { id: projectId, order },
+        input: updatedIndexes,
       },
       {
-        update: (store, { data: { newProject } }) => {
-          debugger
-          const state: ProjectsResponse = store.readQuery({
-            query: this.projectsGQL.document,
-          })
-
-          const foundProjectIndex = state.projects.findIndex(
-            (it) => it.id === projectId
-          )
-          const newItem = {
-            ...newProject,
-            order,
-          }
-
-          const newState = {
-            ...state,
-            projects: [
-              ...state.projects.slice(0, foundProjectIndex),
-              newItem,
-              ...state.projects.slice(foundProjectIndex + 1),
-            ],
-          }
-
-          store.writeQuery({ query: this.projectsGQL.document, data: newState })
-        },
+        refetchQueries: [{ query: this.projectsGQL.document }],
       }
     )
   }

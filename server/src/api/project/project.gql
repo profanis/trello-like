@@ -14,11 +14,10 @@ input UpdateProjectInput {
   name: String!
 }
 
-input UpdateProjectSortingInput {
+input UpdateProjectOrderInput {
   id: ID!
   order: Int
 }
-
 
 extend type Query {
   project(id: ID!): Project!
@@ -28,6 +27,6 @@ extend type Query {
 extend type Mutation {
   newProject(input: NewProjectInput): Project!
   updateProject(input: UpdateProjectInput): Project!
-  updateProjectSorting(input: UpdateProjectSortingInput): Project!
+  updateProjectsOrder(input: [UpdateProjectOrderInput]): [Project]
   removeProject(id: ID!): Project!
 }
