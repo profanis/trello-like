@@ -9,12 +9,12 @@ import {
 import { Project } from 'src/app/models/project.model'
 
 @Component({
-  selector: 'trello-card-list',
-  templateUrl: './card-list.component.html',
-  styleUrls: ['./card-list.component.scss'],
+  selector: 'trello-project-items',
+  templateUrl: './project-items.component.html',
+  styleUrls: ['./project-items.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CardListComponent {
+export class ProjectItemsComponent {
   @Input() project: Project
   @Output() deleteCardList = new EventEmitter<string>()
   @Output() dragDrop = new EventEmitter<{

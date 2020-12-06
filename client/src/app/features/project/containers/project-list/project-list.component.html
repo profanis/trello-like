@@ -6,28 +6,16 @@
   class="project-list d-flex flex-row"
 >
   <div *ngFor="let project of projects" cdkDrag>
-    <trello-card-list
+    <trello-project-items
       [project]="project"
       (deleteCardList)="removeProject($event)"
       (dragDrop)="drop($event.event, $event.projects)"
       (insertItem)="addTaskInProject($event.task, $event.project)"
-    ></trello-card-list>
+    ></trello-project-items>
   </div>
 
   <!-- Component -->
   <trello-new-project-list-input
     (add)="addProject($event)"
   ></trello-new-project-list-input>
-  <div class="new-project-list-wrapper">
-    <!-- <div class="project-card-title">+ Add another list</div>
-    <div class="tasks">
-      <div class="task-card">
-        <input
-          type="text"
-          (keyup.enter)="addProject()"
-          [(ngModel)]="project.name"
-        />
-      </div>
-    </div> -->
-  </div>
 </div>
