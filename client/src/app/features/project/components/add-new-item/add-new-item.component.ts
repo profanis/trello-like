@@ -7,12 +7,12 @@ import {
 } from '@angular/core'
 
 @Component({
-  selector: 'trello-add-new-task',
-  templateUrl: './add-new-task.component.html',
-  styleUrls: ['./add-new-task.component.scss'],
+  selector: 'trello-add-new-item',
+  templateUrl: './add-new-item.component.html',
+  styleUrls: ['./add-new-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddNewTaskComponent {
+export class AddNewItemComponent {
   @Output() add = new EventEmitter<string>()
   @Output() isEditModeChange = new EventEmitter<boolean>()
 

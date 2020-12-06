@@ -11,11 +11,11 @@
     + Add another list
   </span>
   <div *ngIf="isEditingMode">
-    <trello-add-new-task
+    <trello-add-new-item
       [(isEditMode)]="isEditingMode"
       [buttonTitle]="'Add list'"
       [placeholder]="'Enter list title...'"
       (add)="addNewList($event)"
-    ></trello-add-new-task>
+    ></trello-add-new-item>
   </div>
 </div>
