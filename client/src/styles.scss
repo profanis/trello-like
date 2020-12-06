@@ -24,7 +24,10 @@ body {
 }
 
 .cdk-drag-placeholder {
-  opacity: 0;
+  background-color: $header-color;
+  .project-card {
+    opacity: 0;
+  }
 }
 
 .cdk-drag-animating {

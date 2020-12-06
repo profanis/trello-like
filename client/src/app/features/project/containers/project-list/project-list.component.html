@@ -5,14 +5,14 @@
   (cdkDropListDropped)="drop($event, projects)"
   class="project-list d-flex flex-row"
 >
-  <div *ngFor="let project of projects" cdkDrag>
-    <trello-project-items
-      [project]="project"
-      (deleteCardList)="removeProject($event)"
-      (dragDrop)="drop($event.event, $event.projects)"
-      (insertItem)="addTaskInProject($event.task, $event.project)"
-    ></trello-project-items>
-  </div>
+  <trello-project-items
+    *ngFor="let project of projects"
+    cdkDrag
+    [project]="project"
+    (deleteCardList)="removeProject($event)"
+    (dragDrop)="drop($event.event, $event.projects)"
+    (insertItem)="addTaskInProject($event.task, $event.project)"
+  ></trello-project-items>
 
   <!-- Component -->
   <trello-new-project (add)="addProject($event)"></trello-new-project>

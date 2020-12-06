@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core'
 import { Project } from 'src/app/models/project.model'
+import { Task } from '../../../../models/task.model'
 
 @Component({
   selector: 'trello-project-items',
@@ -22,6 +23,9 @@ export class ProjectItemsComponent {
     projects: any
   }>()
   @Output() insertItem = new EventEmitter<{ task: string; project: Project }>()
+
+  selectedTask: Task
+  isModalVisible = false
 
   removeProject(id: string) {
     this.deleteCardList.emit(id)
@@ -47,5 +51,15 @@ export class ProjectItemsComponent {
     moveItemInArray(tasks, event.previousIndex, event.currentIndex)
 
     // Persist task order in Project
+  }
+
+  selectTask(task: Task) {
+    this.isModalVisible = true
+    this.selectedTask = task
+  }
+
+  closeModal() {
+    this.isModalVisible = false
+    this.selectedTask = null
   }
 }

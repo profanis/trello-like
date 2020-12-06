@@ -1,5 +1,7 @@
+@import '../../../assets/helpers/variables';
+
 .page-header {
-  background-color: #0067a3;
+  background-color: $header-color;
   width: 100%;
   display: flex;
   align-items: center;

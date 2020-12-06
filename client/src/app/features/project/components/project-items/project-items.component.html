@@ -10,7 +10,12 @@
     cdkDropListOrientation="vertical"
     (cdkDropListDropped)="dropTask($event, project.tasks)"
   >
-    <div class="task-card" *ngFor="let task of project.tasks" cdkDrag>
+    <div
+      class="task-card"
+      *ngFor="let task of project.tasks"
+      cdkDrag
+      (click)="selectTask(task)"
+    >
       {{ task.name }}
     </div>
 
@@ -19,3 +24,12 @@
     <!-- /Add new item -->
   </div>
 </div>
+
+<trello-modal
+  [visible]="isModalVisible"
+  (close)="closeModal()"
+  [title]="selectedTask?.name"
+  subtitle="{{ 'in list ' + project?.name }}"
+>
+  <div content>WIP</div>
+</trello-modal>

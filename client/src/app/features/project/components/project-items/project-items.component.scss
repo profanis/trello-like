@@ -1,6 +1,10 @@
 @import '../../../../../assets/helpers/variables';
 @import '../../../../../assets/components/task';
 
+:host {
+  height: 100%;
+}
+
 .project-card {
   @include project-gutter();
   background-color: $project-card-bg-color;
@@ -40,6 +44,7 @@
     margin-top: 10px;
     .task-card {
       @include task_item();
+      cursor: pointer;
     }
   }
 }

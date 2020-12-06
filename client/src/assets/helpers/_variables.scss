@@ -1,4 +1,5 @@
 $main-color: #0079bf;
+$header-color: #0067a3;
 $main-font-size: 14px;
 
 $border-radius: 3px;
@@ -10,4 +11,15 @@ $project-list-width: 250px;
 
 @mixin project-gutter() {
   margin-left: 8px;
+}
+
+@mixin backgroundOverlay() {
+  background-color: #586a74;
+  bottom: 0;
+  left: 0;
+  opacity: 0.5;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
 }

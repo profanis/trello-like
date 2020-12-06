@@ -1,0 +1,73 @@
+@import '../../../assets/helpers/variables';
+
+$modal-min-height: 700px;
+$modal-max-height: calc(100vh);
+$modal-min-width: 750px;
+$modal-max-width: calc(100vw);
+$button-gutter-size: 8px;
+$header-height: 40px;
+$actions-height: 64px;
+$close-icon-color-disabled: #c0d2db;
+
+.trello-modal-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  overflow: auto;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+
+  &:after {
+    @include backgroundOverlay();
+    content: ' ';
+  }
+
+  .trello-modal {
+    background: #ffffff;
+    border-radius: $border-radius;
+    display: flex;
+    flex-direction: column;
+    margin: 40px auto;
+    max-height: $modal-max-height;
+    max-width: $modal-max-width;
+    min-height: $modal-min-height;
+    min-width: $modal-min-width;
+    width: fit-content;
+    padding: 16px;
+    z-index: 100;
+
+    .trello-modal-header {
+      display: flex;
+      margin-bottom: 16px;
+
+      .trello-modal-title-wrapper {
+        display: flex;
+        flex-flow: column;
+        flex: 1;
+        justify-content: center;
+
+        .trello-modal-title {
+          font-size: 20px;
+          flex: 1;
+          height: $header-height;
+        }
+
+        .trello-modal-subtitle {
+          font-size: 12px;
+        }
+      }
+
+      .trello-modal-close {
+        cursor: pointer;
+      }
+    }
+
+    .trello-modal-content {
+      flex: 1;
+    }
+  }
+}

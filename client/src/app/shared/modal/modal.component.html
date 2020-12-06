@@ -1,0 +1,20 @@
+<div *ngIf="visible" class="trello-modal-wrapper">
+  <div class="trello-modal">
+    <div class="trello-modal-header">
+      <div class="trello-modal-title-wrapper">
+        <div class="trello-modal-title">
+          {{ title }}
+        </div>
+        <div *ngIf="subtitle" class="trello-modal-subtitle">
+          {{ subtitle }}
+        </div>
+      </div>
+      <div (click)="onClose()" class="trello-modal-close">
+        <span>X</span>
+      </div>
+    </div>
+    <div class="trello-modal-content">
+      <ng-content select="[content]"></ng-content>
+    </div>
+  </div>
+</div>

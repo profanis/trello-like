@@ -30,17 +30,6 @@ const updateProjectsOrder = (_: any, args: any) => {
     }).exec()
   })
 
-  // const projects = ProjectModel.find({}).exec()
-
-  // const response = ProjectModel.findByIdAndUpdate(args.input.id, {
-  //   order: newOrder,
-  // }).exec()
-
-  // ProjectModel.updateMany(
-  //   { order: { $gte: newOrder }, id: { $ne: args.input.id } },
-  //   { $inc: { order: 1 } }
-  // ).exec()
-
   return ProjectModel.find({}).exec()
 }
 
