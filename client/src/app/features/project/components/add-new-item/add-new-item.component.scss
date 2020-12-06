@@ -1,34 +1,17 @@
 @import '../../../../../assets/helpers/variables';
 @import '../../../../../assets/components/task';
 
-$new-card-color: #5e6c84;
-
-.add-new-card {
-  padding: $project-card-padding;
-  font-size: $main-font-size;
-  color: $new-card-color;
-
-  &:hover {
-    background-color: darken($project-card-bg-color, 5);
-    color: darken($new-card-color, 5);
-    border-radius: $border-radius;
-    cursor: pointer;
+.adding-new-item-input {
+  @include task_item();
+  border: none;
+  width: 100%;
+  height: 50px;
+  &:focus {
+    outline: none;
   }
 }
 
-.adding-new-card {
-  .adding-new-card-input {
-    @include task_card();
-    border: none;
-    width: 100%;
-    height: 50px;
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .close-icon {
-    color: #6b778c;
-    cursor: pointer;
-  }
+.close-icon {
+  color: #6b778c;
+  cursor: pointer;
 }

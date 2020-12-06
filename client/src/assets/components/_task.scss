@@ -1,11 +1,11 @@
 @import '../helpers/variables';
 
-@mixin task_card {
+@mixin task_item {
   background-color: #fff;
   box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
   margin-bottom: 8px;
   border-radius: $border-radius;
-  padding: $project-card-padding;
+  padding: $project-item-padding;
   font-size: $main-font-size;
   color: #172b4d;
 }

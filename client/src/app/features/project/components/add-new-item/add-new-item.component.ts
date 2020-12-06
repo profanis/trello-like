@@ -30,8 +30,8 @@ export class AddNewItemComponent {
 
   @Input() buttonTitle = 'Add card'
 
-  addCard(cardValue: string) {
-    this.add.emit(cardValue)
+  addItem(value: string) {
+    this.add.emit(value)
     this.isEditMode = false
   }
 }

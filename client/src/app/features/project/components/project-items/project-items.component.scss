@@ -39,7 +39,7 @@
   .tasks {
     margin-top: 10px;
     .task-card {
-      @include task_card();
+      @include task_item();
     }
   }
 }

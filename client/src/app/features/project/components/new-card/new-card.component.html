@@ -1,0 +1,12 @@
+<div *ngIf="!isEditMode" class="add-new-card" (click)="isEditMode = true">
+  + Add another card
+</div>
+
+<div *ngIf="isEditMode">
+  <trello-add-new-item
+    [(isEditMode)]="isEditMode"
+    [buttonTitle]="'Add card'"
+    [placeholder]="'Enter a title for this card...'"
+    (add)="addNewCard($event)"
+  ></trello-add-new-item>
+</div>

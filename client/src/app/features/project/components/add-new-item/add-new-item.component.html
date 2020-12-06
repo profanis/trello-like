@@ -1,15 +1,11 @@
-<div *ngIf="!isEditMode" class="add-new-card" (click)="isEditMode = true">
-  + Add another card
-</div>
-
-<div *ngIf="isEditMode" class="adding-new-card">
+<div *ngIf="isEditMode">
   <input
     type="text"
-    class="adding-new-card-input"
-    name="newCardItem"
+    class="adding-new-item-input"
+    name="newItem"
     ngModel
-    #newCardItem="ngModel"
-    (keydown.enter)="addCard(newCardItem.value)"
+    #newItem="ngModel"
+    (keydown.enter)="addItem(newItem.value)"
     [placeholder]="placeholder"
     [trelloAutoFocus]
   />
@@ -17,7 +13,7 @@
     <button
       type="button"
       class="btn btn-success btn-sm"
-      (click)="addCard(newCardItem.value)"
+      (click)="addItem(newItem.value)"
     >
       {{ buttonTitle }}
     </button>
