@@ -6,12 +6,12 @@ import {
 } from '@angular/core'
 
 @Component({
-  selector: 'trello-new-project-list-input',
-  templateUrl: './new-project-list-input.component.html',
-  styleUrls: ['./new-project-list-input.component.scss'],
+  selector: 'trello-new-project',
+  templateUrl: './new-project.component.html',
+  styleUrls: ['./new-project.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewProjectListInputComponent {
+export class NewProjectComponent {
   @Output() add = new EventEmitter<string>()
 
   isEditingMode = false
