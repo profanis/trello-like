@@ -1,0 +1,25 @@
+$icon-size: 16px;
+$icon-path: '/assets/icons/';
+
+.icon {
+  $icons: (
+    'credit-card': 'credit-card.svg',
+  );
+
+  @each $name, $icon in $icons {
+    &.ic-#{$name} {
+      mask: url($icon-path + $icon);
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+    }
+  }
+
+  background-color: #42526e;
+  display: inline-block;
+  height: $icon-size;
+  width: $icon-size;
+}

@@ -1,0 +1,26 @@
+.modal-title {
+  font-weight: 600;
+}
+
+.modal-subtitle {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.columns-wrapper {
+  display: flex;
+  width: 800px;
+  height: 500px;
+
+  .icons-column {
+    width: 32px;
+  }
+
+  .content-column {
+    flex: 1;
+  }
+
+  .actions-column {
+    width: 200px;
+  }
+}

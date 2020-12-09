@@ -8,6 +8,7 @@ import {
 } from '@angular/core'
 import { Project } from 'src/app/models/project.model'
 import { Task } from '../../../../models/task.model'
+import { CardModalService } from '../../services/card-modal.service'
 
 @Component({
   selector: 'trello-project-items',
@@ -26,6 +27,8 @@ export class ProjectItemsComponent {
 
   selectedTask: Task
   isModalVisible = false
+
+  constructor(private cardModalService: CardModalService) {}
 
   removeProject(id: string) {
     this.deleteCardList.emit(id)
@@ -54,8 +57,9 @@ export class ProjectItemsComponent {
   }
 
   selectTask(task: Task) {
-    this.isModalVisible = true
-    this.selectedTask = task
+    this.cardModalService.show(task.name, this.project)
+    // this.isModalVisible = true
+    // this.selectedTask = task
   }
 
   closeModal() {

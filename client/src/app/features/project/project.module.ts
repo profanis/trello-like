@@ -6,7 +6,8 @@ import { NewCardComponent } from './components/new-card/new-card.component'
 import { NewProjectComponent } from './components/new-project/new-project.component'
 import { ProjectItemsComponent } from './components/project-items/project-items.component'
 import { ProjectListComponent } from './containers/project-list/project-list.component'
-import { ProjectRoutingModule } from './project-routing.module'
+import { ProjectRoutingModule } from './project-routing.module';
+import { CardModalComponent } from './components/card-modal/card-modal.component'
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ProjectRoutingModule } from './project-routing.module'
     AddNewItemComponent,
     NewProjectComponent,
     NewCardComponent,
+    CardModalComponent,
   ],
   imports: [SharedModule, ProjectRoutingModule, DragDropModule],
 })
