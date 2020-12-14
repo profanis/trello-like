@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { Project } from 'src/app/models/project.model'
 import { ProjectsResponse } from '../../models/project.model'
@@ -7,7 +8,6 @@ import { NewTaskGQL } from './graphql/mutations/new-task.mutation'
 import { RemoveProjectGQL } from './graphql/mutations/remove-project.mutation'
 import { UpdateProjectsOrderGQL } from './graphql/mutations/update-project-order.mutation'
 import { ProjectsGQL } from './graphql/queries/projects.query'
-
 @Injectable()
 export class ProjectListService {
   constructor(
@@ -18,9 +18,9 @@ export class ProjectListService {
     private newTaskGQL: NewTaskGQL
   ) {}
 
-  addProject(project: Project) {
+  addProject(name: string) {
     return this.newProjectGQL.mutate(
-      { input: project },
+      { input: { name } },
       {
         update: (store, { data: { newProject } }) => {
           // Get the slice of the cache
@@ -125,7 +125,7 @@ export class ProjectListService {
     )
   }
 
-  getProjects() {
+  getProjects(): Observable<{ projects: Project[] }> {
     return this.projectsGQL
       .watch()
       .valueChanges.pipe(map((results) => results.data))

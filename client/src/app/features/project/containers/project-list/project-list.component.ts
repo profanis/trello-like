@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { first, tap } from 'rxjs/operators'
-import { Project, ProjectsResponse } from 'src/app/models/project.model'
+import { Project } from 'src/app/models/project.model'
 import { ProjectListService } from '../../project-list.service'
 
 @Component({
@@ -12,7 +12,7 @@ import { ProjectListService } from '../../project-list.service'
   providers: [ProjectListService],
 })
 export class ProjectListComponent implements OnInit {
-  data$: Observable<ProjectsResponse>
+  data$: Observable<{ projects: Project[] }>
   project: Project = {}
 
   constructor(private projectListService: ProjectListService) {}
@@ -21,11 +21,9 @@ export class ProjectListComponent implements OnInit {
     this.data$ = this.projectListService.getProjects()
   }
 
-  addProject(projectName: string) {
+  addProject(name: string) {
     this.projectListService
-      .addProject({
-        name: projectName,
-      })
+      .addProject(name)
       .pipe(
         first(),
         tap(() => (this.project.name = ''))
@@ -33,7 +31,7 @@ export class ProjectListComponent implements OnInit {
       .subscribe()
   }
 
-  removeProject(projectId) {
+  removeProject(projectId: number) {
     this.projectListService.removeProject(projectId).pipe(first()).subscribe()
   }
 

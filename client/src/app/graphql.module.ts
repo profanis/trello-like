@@ -6,7 +6,7 @@ import { HttpLink } from 'apollo-angular/http'
 
 const uri = 'http://localhost:3001/graphql' // <-- add the URL of the GraphQL server here
 
-const link = onError(({ graphQLErrors, networkError }) => {
+const onErrorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.map(({ message, locations, path }) =>
       console.log(
@@ -22,7 +22,7 @@ const link = onError(({ graphQLErrors, networkError }) => {
 
 export function createApollo(httpLink: HttpLink) {
   return {
-    link: link.concat(httpLink.create({ uri })),
+    link: onErrorLink.concat(httpLink.create({ uri })),
     cache: new InMemoryCache(),
     defaultOptions: {
       watchQuery: {

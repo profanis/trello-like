@@ -7,7 +7,7 @@ import { Project } from './../../../../models/project.model'
 })
 export class NewProjectGQL extends Mutation<
   { newProject: Project },
-  { input: Project }
+  { input: { name: string } }
 > {
   document = gql`
     mutation NewProject($input: NewProjectInput) {

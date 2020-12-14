@@ -1,20 +1,19 @@
-import {Query, gql} from 'apollo-angular';
 import { Injectable } from '@angular/core'
-
-
-import { ProjectsResponse } from 'src/app/models/project.model';
+import { gql, Query } from 'apollo-angular'
+import { Project } from './../../../../models/project.model'
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProjectsGQL extends Query<ProjectsResponse> {
+export class ProjectsGQL extends Query<{ projects: Project[] }> {
   document = gql`
-    query GetProjects {
+    query {
       projects {
         id
         name
         order
         tasks {
+          id
           name
         }
       }
