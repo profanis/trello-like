@@ -28,3 +28,6 @@
   - Update a project name
   - Set labels
   - Set description
+
+## Slides of the talk
+- [Slides](https://slides.com/profanis/create-a-trello-like-app-with-angular-graphql)
