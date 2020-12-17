@@ -1,5 +1,7 @@
 # A Trello Like app with Angular and GraphQL
 
+![A Trello Like app with Angular and GraphQL](client/src/assets/ezgif.com-gif-maker.gif)
+
 ## Stack
 
 ### Client
